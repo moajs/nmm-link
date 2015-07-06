@@ -1,5 +1,6 @@
 var Inflector = require('inflected');
-var link = require('fs-symlink')
+var link      = require('fs-symlink');
+var fs        = require('fs');
 
 var plugin_root_path = __dirname;
 // var current_path = process.cwd();
@@ -8,7 +9,9 @@ function create_symlink(source_path, dest_path, model_name) {
   var dest_arr = _get_files_arr(model_name);
   
   dest_arr.forEach(function(path){
-    console.log(source_path + '/' + path);
+    // console.log(source_path + '/' + path);
+    // console.log(dest_path + '/' + path);
+    _link(source_path + '/' + path, dest_path + '/' + path)
   });
 }
 
@@ -16,13 +19,26 @@ function remove_symlink(dest_path, model_name) {
   var dest_arr = _get_files_arr(model_name);
   
   dest_arr.forEach(function(path){
-    console.log(plugin_root_path + '/' + path);
+    console.log(dest_path + '/' + path);
+    _unlink(dest_path + '/' + path);
   });
 }
 
-function _link(dest_root_path){
-  link(dir, dest_path + '/' + dir_name,  'junction').then(function () {
-    console.log('copy modudle ' + dir_name + ' finished');
+
+function _unlink(dest_root_path){
+  var l = fs.readlinkSync(dest_root_path);
+  if(l){
+    fs.unlinkSync(dest_root_path);
+  }
+}
+
+function _link(soure_root_path, dest_root_path){
+  console.log(soure_root_path);
+  console.log(dest_root_path);
+  
+  // return;
+  link(soure_root_path, dest_root_path,  'junction').then(function () {
+    console.log('copy modudle ' + dest_root_path + ' finished');
   })
 }
 
@@ -35,7 +51,7 @@ function _get_files_arr(model_name){
   var r = 'app/routes/'  + model_names + '.js';
   var a = 'app/routes/api/' + model_names + '.js';
   
-  return [c,m,v,r,a];
+  return [c, m, v, r, a];
 }
 
 exports.link    = create_symlink;
@@ -43,4 +59,6 @@ exports.unlink  = remove_symlink;
 
 // module.exports = require('./lib/express');
 
-create_symlink(plugin_root_path, '.','user') ;
+create_symlink(plugin_root_path, plugin_root_path + '/app2','share') ;
+
+// remove_symlink(plugin_root_path + '/app2','share') ;
