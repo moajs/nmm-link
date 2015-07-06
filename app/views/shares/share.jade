@@ -1,0 +1,14 @@
+- var _action = share._action == 'edit' ? '#' : '/shares/'
+- var _method = share._action == 'edit' ? ""  : "post"
+- var _type   = share._action == 'edit' ? "button"  : "submit"
+- var onClick  = share._action == 'edit' ?  "click_edit('share-" + share._action + "-form','/shares/" + share._id + "/')" : ""
+form(id='share-#{ share._action}-form',action="#{_action}", method="#{_method}",role='form')
+  each n in ['share.content','share.topic_id','share.user_id']
+    - m = eval(n);
+    div(class="field")
+      label #{n.split('.')[1]} #{m}
+      br
+      input(type='text',name="#{n.split('.')[1]}" ,value="#{ m == undefined ? '' : m }")
+        
+  div(class="actions") 
+    input(type='#{_type}',value='Submit',onClick='#{onClick}')

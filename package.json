@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/moajs/nmm-link#readme",
   "dependencies": {
-    "fs-symlink": "^1.2.0"
+    "bluebird": "^2.9.32",
+    "fs-symlink": "^1.2.0",
+    "inflected": "^1.1.6"
   }
 }
