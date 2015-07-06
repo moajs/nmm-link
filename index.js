@@ -24,7 +24,6 @@ function remove_symlink(dest_path, model_name) {
   });
 }
 
-
 function _unlink(dest_root_path){
   var l = fs.readlinkSync(dest_root_path);
   if(l){
@@ -59,6 +58,6 @@ exports.unlink  = remove_symlink;
 
 // module.exports = require('./lib/express');
 
-create_symlink(plugin_root_path, plugin_root_path + '/app2','share') ;
+// create_symlink(plugin_root_path, plugin_root_path + '/app2','share') ;
 
 // remove_symlink(plugin_root_path + '/app2','share') ;
