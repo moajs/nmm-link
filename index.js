@@ -11,7 +11,7 @@ function create_symlink(source_path, dest_path, model_name) {
   dest_arr.forEach(function(path){
     // console.log(source_path + '/' + path);
     // console.log(dest_path + '/' + path);
-    _link(source_path + '/' + path, dest_path + '/' + path)
+    _link(source_path + '/' + path, dest_path + '' + path)
   });
 }
 
@@ -53,11 +53,9 @@ function _get_files_arr(model_name){
   return [c, m, v, r, a];
 }
 
+exports.simple_link    = _link;
 exports.link    = create_symlink;
 exports.unlink  = remove_symlink;
 
 // module.exports = require('./lib/express');
 
-// create_symlink(plugin_root_path, plugin_root_path + '/app2','share') ;
-
-// remove_symlink(plugin_root_path + '/app2','share') ;
