@@ -1,10 +1,5 @@
 #!/usr/bin/env node
 
-// print process.argv
-// process.argv.forEach(function (val, index, array) {
-//   console.log(index + ': ' + val);
-// });
-
 var o = require('./index')
 var current_path = process.cwd();
 
@@ -27,21 +22,10 @@ var moajs_project_dir = path_arr.join('/')
 
 console.log('moajs_project_dir = ' + moajs_project_dir);
 
-current_path = '/Users/sang/workspace/moa/node_modules/nmm-link/@i5ting'
+// current_path = '/Users/sang/workspace/moa/node_modules/nmm-link/@i5ting'
 
 if(arr.length == 2){
   var dest = arr[0];
-  // o.link(current_path, dest,'share') ;
-  console.log('current_path = ' + current_path)
-  
-  if (current_path.split('/@')) {
-    var p = current_path.split('/@');
-    current_path = p[0];
-    console.log('安装的是private模块，目录是 ' + current_path);
-  }else{
-    console.log('安装的是public模块，目录是 ' + current_path);
-  }
-  
   console.log('current_path = ' + current_path)
   
   dirw.walk(current_path + '/app', 0, handleFile);
@@ -53,11 +37,14 @@ if(arr.length == 2){
 
 // o.link(current_path, current_path + '/app2','share') ;
 // remove_symlink(plugin_root_path + '/app2','share') ;
-
 function link(p){
   var new_path_arr = p.split('app')
 
+  console.log('source='+p);
+  
   var d = moajs_project_dir + '/app' + new_path_arr[1] 
+  
+  d = d.replace('/node_modules','');
   console.log('LINK + ' + d)
   
   o.simple_link(p, d);
