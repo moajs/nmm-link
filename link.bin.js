@@ -13,6 +13,10 @@ console.log(current_path);
 var plugin_root_path = __dirname;
 var arr = current_path.split('node_modules');
 
+if(arr.length < 2){
+  return console.log('当前模块没有node_modules目录');
+}
+
 var dirw = require('dirw');
 var fs = require('fs')
 var path_arr = current_path.split('/');
@@ -20,12 +24,26 @@ path_arr.pop()
 path_arr.pop()
 
 var moajs_project_dir = path_arr.join('/')
-console.log('moajs_project_dir=' + moajs_project_dir);
 
+console.log('moajs_project_dir = ' + moajs_project_dir);
+
+current_path = '/Users/sang/workspace/moa/node_modules/nmm-link/@i5ting'
 
 if(arr.length == 2){
   var dest = arr[0];
   // o.link(current_path, dest,'share') ;
+  console.log('current_path = ' + current_path)
+  
+  if (current_path.split('/@')) {
+    var p = current_path.split('/@');
+    current_path = p[0];
+    console.log('安装的是private模块，目录是 ' + current_path);
+  }else{
+    console.log('安装的是public模块，目录是 ' + current_path);
+  }
+  
+  console.log('current_path = ' + current_path)
+  
   dirw.walk(current_path + '/app', 0, handleFile);
   
   console.log('moajs插件完成!')
